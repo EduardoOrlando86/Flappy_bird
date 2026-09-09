@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://wx0r72g7gs50"]
+
+[ext_resource type="Texture2D" uid="uid://bnh55q2yshs02" path="res://icon.svg" id="1_f6udf"]
+[ext_resource type="Script" uid="uid://dplqhfng8to1a" path="res://Script/bird.gd" id="1_sblpm"]
+[ext_resource type="PackedScene" uid="uid://bslrrkxu87f06" path="res://Scene/obstacle.tscn" id="3_2wwxx"]
+[ext_resource type="Script" uid="uid://dcqlfwm7jeuod" path="res://Script/obstacle_spawner.gd" id="4_3amdw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0yc80"]
+radius = 32.24903
+
+[node name="Main" type="Node2D" unique_id=1493987774]
+
+[node name="Bird" type="CharacterBody2D" parent="." unique_id=297047599]
+position = Vector2(152, 190)
+script = ExtResource("1_sblpm")
+
+[node name="Icon" type="Sprite2D" parent="Bird" unique_id=162178343]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_f6udf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bird" unique_id=588935795]
+shape = SubResource("CircleShape2D_0yc80")
+
+[node name="obstacle" parent="." unique_id=796794292 instance=ExtResource("3_2wwxx")]
+position = Vector2(1199, 272)
+
+[node name="obstacle_spawner" type="Marker2D" parent="." unique_id=1569658853]
+position = Vector2(1257, 269)
+script = ExtResource("4_3amdw")
+
+[node name="Timer" type="Timer" parent="obstacle_spawner" unique_id=195379324]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="obstacle_spawner/Timer" to="obstacle_spawner" method="_on_timer_timeout"]
